@@ -1,0 +1,211 @@
+---
+title: "8/26/25"
+format: html
+editor: visual
+---
+
+# Law of large numbers
+
+Set the n of trials & n of rolls per trial
+
+Lae of large numbers states that if one repeats an exp. intependently over and over & avgs the results, the avg will be close to the expected value (e.g. population mean)
+
+```{r}
+set.seed(9999)
+```
+
+Expected value equation: E(X) = mu = sigmaX P(X)
+
+Six-sided die
+
+```{r}
+em <- (1*(1/6)) + (2*(1/6)) + (3*(1/6)) + (4*(1/6)) + (5*(1/6)) + (6*(1/6)) 
+cat("Expected Mean:", em)
+```
+
+```{r}
+num_trials <- 5 # can be thought of as experiments
+rolls_per_trial <- 100 # how many participants of respondents in one experiment
+```
+
+Function to simulate rolling a fair six-sided die
+
+```{r}
+roll_die <- function(){
+  sample(1:6, 1, replace = TRUE)
+}
+```
+
+Initialize empty vector to store the samp means
+
+```{r}
+sample_means <- numeric(num_trials)
+```
+
+Perform the trials
+
+```{r}
+for (i in 1:num_trials) {
+# Initialize the sum of rolls for each trial
+sum_rolls <- 0
+# Roll the die 'rolls_per_trial' times and sum the outcomes
+for (j in 1:rolls_per_trial) {
+sum_rolls <- sum_rolls + roll_die()
+}
+#Calculate the sample mean for each trial
+sample_means[i] <- sum_rolls / rolls_per_trial
+}
+
+#Calculate the average of the sample means
+mean_of_sample_means <- mean(sample_means)
+#the cat function connects the string to the numeric mean of the sample means
+cat("Mean of sample means:", mean_of_sample_means)
+## Mean of sample means: 3.558
+hist(sample_means)
+```
+
+## Example 2
+
+```{r}
+# Set the number of trials and the number of rolls per trial
+num_trials <- 10
+rolls_per_trial <- 100
+set.seed(9999)
+# Function to simulate rolling a fair six-sided die
+roll_die <- function() {
+sample(1:6, 1, replace = TRUE)
+}
+# Initialize an empty vector to store the sample means
+sample_means <- numeric(num_trials)
+# Perform the trials
+for (i in 1:num_trials) {
+# Initialize the sum of rolls for each trial
+sum_rolls <- 0
+# Roll the die 'rolls_per_trial' times and sum the outcomes
+for (j in 1:rolls_per_trial) {
+sum_rolls <- sum_rolls + roll_die()
+}
+# Calculate the sample mean for each trial
+sample_means[i] <- sum_rolls / rolls_per_trial
+}
+# Calculate the average of the sample means
+mean_of_sample_means <- mean(sample_means)
+# Print the result
+cat("Mean of sample means:", mean_of_sample_means)
+## Mean of sample means: 3.534
+hist(sample_means)
+```
+
+## Example 3
+
+```{r}
+num_trials <- 50
+rolls_per_trial <- 100
+set.seed(9999)
+# Function to simulate rolling a fair six-sided die
+roll_die <- function() {
+sample(1:6, 1, replace = TRUE)
+}
+# Initialize an empty vector to store the sample means
+sample_means <- numeric(num_trials)
+# Perform the trials
+for (i in 1:num_trials) {
+# Initialize the sum of rolls for each trial
+sum_rolls <- 0
+# Roll the die 'rolls_per_trial' times and sum the outcomes
+for (j in 1:rolls_per_trial) {
+sum_rolls <- sum_rolls + roll_die()
+}
+# Calculate the sample mean for each trial
+sample_means[i] <- sum_rolls / rolls_per_trial
+}
+# Calculate the average of the sample means
+mean_of_sample_means <- mean(sample_means)
+# Print the result
+cat("Mean of sample means:", mean_of_sample_means)
+
+hist(sample_means)
+```
+
+## Example 4
+
+```{r}
+# Set the number of trials and the number of rolls per trial
+num_trials <- 500
+rolls_per_trial <- 100
+set.seed(9999)
+# Function to simulate rolling a fair six-sided die
+roll_die <- function() {
+sample(1:6, 1, replace = TRUE)
+}
+# Initialize an empty vector to store the sample means
+sample_means <- numeric(num_trials)
+# Perform the trials
+for (i in 1:num_trials) {
+# Initialize the sum of rolls for each trial
+sum_rolls <- 0
+# Roll the die 'rolls_per_trial' times and sum the outcomes
+for (j in 1:rolls_per_trial) {
+sum_rolls <- sum_rolls + roll_die()
+}
+# Calculate the sample mean for each trial
+sample_means[i] <- sum_rolls / rolls_per_trial
+}
+# Calculate the average of the sample means
+mean_of_sample_means <- mean(sample_means)
+# Print the result
+cat("Mean of sample means:", mean_of_sample_means)
+## Mean of sample means: 3.49598
+hist(sample_means)
+```
+
+## Library
+
+```{r}
+install.packages("doParallel") # lets you do parallel processing so each core works on the problem at the same time, meaning your computations are fastert
+install.packages("foreach")
+library(doParallel)
+library(foreach)
+```
+
+## Thought experiment
+
+```{r}
+# Set the number of trials and the number of rolls per trial
+num_trials <- 100
+rolls_per_trial <- 100
+set.seed(1000000)
+# Function to simulate rolling a fair six-sided die
+roll_die <- function() {
+sample(1:365.25, 1, replace = TRUE)
+}
+# Initialize an empty vector to store the sample means
+sample_means <- numeric(num_trials)
+# Perform the trials
+for (i in 1:num_trials) {
+# Initialize the sum of rolls for each trial
+sum_rolls <- 0
+# Roll the die 'rolls_per_trial' times and sum the outcomes
+for (j in 1:rolls_per_trial) {
+sum_rolls <- sum_rolls + roll_die()
+}
+# Calculate the sample mean for each trial
+sample_means[i] <- sum_rolls / rolls_per_trial
+}
+# Calculate the average of the sample means
+mean_of_sample_means <- mean(sample_means)
+# Print the result
+cat("Mean of sample means:", mean_of_sample_means)
+
+hist(sample_means)
+```
+
+???
+
+```{r}
+1-(1/365.25)
+```
+
+```{r}
+1-(1/(365.25*100))
+```
